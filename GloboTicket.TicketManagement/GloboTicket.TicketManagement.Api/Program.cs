@@ -1,4 +1,4 @@
-//using GloboTicket.TicketManagement.Identity.Models;
+using GloboTicket.TicketManagement.Identity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -33,9 +33,9 @@ namespace GloboTicket.TicketManagement.Api
 
                 try
                 {
-                    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-                    //await Identity.Seed.UserCreator.SeedAsync(userManager);
+                    await Identity.Seed.UserCreator.SeedAsync(userManager);
                     Log.Information("Application Starting");
                 }
                 catch (Exception ex)

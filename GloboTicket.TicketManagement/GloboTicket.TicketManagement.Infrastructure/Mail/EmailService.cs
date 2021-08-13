@@ -13,9 +13,9 @@ namespace GloboTicket.TicketManagement.Infrastructure.Mail
         public EmailSettings _emailSettings { get; }
         public ILogger<EmailService> _logger { get; }
 
-        public EmailService(EmailSettings emailSettings, ILogger<EmailService> logger)
+        public EmailService(IOptions<EmailSettings> mailSettings, ILogger<EmailService> logger)
         {
-            _emailSettings = emailSettings;
+            _emailSettings = mailSettings.Value;
             _logger = logger;
         }
 
