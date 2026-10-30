@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
@@ -17,9 +19,18 @@ namespace GloboTicket.TicketManagement.API.IntegrationTests.Base
             builder.ConfigureServices(services =>
             {
 
+                services.RemoveAll<DbContextOptions<GloboTicketDbContext>>();
+                services.RemoveAll<IDbContextOptionsConfiguration<GloboTicketDbContext>>();
+                services.RemoveAll<GloboTicketDbContext>();
+
+                var inMemoryProvider = new ServiceCollection()
+                    .AddEntityFrameworkInMemoryDatabase()
+                    .BuildServiceProvider();
+
                 services.AddDbContext<GloboTicketDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("GloboTicketDbContextInMemoryTest");
+                    options.UseInMemoryDatabase("GloboTicketDbContextInMemoryTest")
+                        .UseInternalServiceProvider(inMemoryProvider);
                 });
 
                 var sp = services.BuildServiceProvider();

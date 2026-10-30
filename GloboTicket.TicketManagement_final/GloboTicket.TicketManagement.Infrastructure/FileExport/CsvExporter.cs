@@ -2,6 +2,7 @@
 using GloboTicket.TicketManagement.Application.Contracts.Infrastructure;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsExport;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace GloboTicket.TicketManagement.Infrastructure
@@ -13,7 +14,7 @@ namespace GloboTicket.TicketManagement.Infrastructure
             using var memoryStream = new MemoryStream();
             using (var streamWriter = new StreamWriter(memoryStream))
             {
-                using var csvWriter = new CsvWriter(streamWriter);
+                using var csvWriter = CsvWriter.Create(streamWriter, new CsvWriterOptions { FormatProvider = CultureInfo.CurrentCulture }, leaveOpen: true);
                 csvWriter.WriteRecords(eventExportDtos);
             }
 

@@ -19,7 +19,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Upda
             _eventRepository = eventRepository;
         }
 
-        public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
 
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
@@ -38,8 +38,6 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Upda
             _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
 
             await _eventRepository.UpdateAsync(eventToUpdate);
-
-            return Unit.Value;
         }
     }
 }

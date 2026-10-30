@@ -19,7 +19,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Dele
             _eventRepository = eventRepository;
         }
 
-        public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
             var eventToDelete = await _eventRepository.GetByIdAsync(request.EventId);
 
@@ -29,8 +29,6 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Dele
             }
 
             await _eventRepository.DeleteAsync(eventToDelete);
-
-            return Unit.Value;
         }
     }
 }

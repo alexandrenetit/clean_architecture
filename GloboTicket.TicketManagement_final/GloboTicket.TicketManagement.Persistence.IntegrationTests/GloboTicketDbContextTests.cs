@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Shouldly;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace GloboTicket.TicketManagement.Persistence.IntegrationTests
@@ -26,7 +27,7 @@ namespace GloboTicket.TicketManagement.Persistence.IntegrationTests
         }
 
         [Fact]
-        public async void Save_SetCreatedByProperty()
+        public async Task Save_SetCreatedByProperty()
         {
             var ev = new Event() {EventId = Guid.NewGuid(), Name = "Test event" };
 
